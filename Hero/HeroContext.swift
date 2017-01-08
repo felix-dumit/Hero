@@ -98,6 +98,14 @@ extension HeroContext{
     let snapshot:UIView
     if #available(iOS 9.0, *), let stackView = view as? UIStackView{
       snapshot = stackView.slowSnapshotView()
+    } else if let effectView = view as? UIVisualEffectView {
+      let backgroundView = view.window!.slowSnapshotView(bounds: effectView.bounds)
+      let contentView = UIVisualEffectView(effect: effectView.effect)
+      contentView.frame = effectView.bounds
+      let snapshotView = UIView()
+      snapshotView.addSubview(backgroundView)
+      snapshotView.addSubview(contentView)
+      snapshot = snapshotView
     } else if let imageView = view as? UIImageView{
       let contentView = UIImageView(image: imageView.image)
       contentView.frame = imageView.bounds

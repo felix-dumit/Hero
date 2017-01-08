@@ -95,7 +95,8 @@ public extension UIView{
     }
   }
 
-  func slowSnapshotView() -> UIView{
+  func slowSnapshotView(bounds: CGRect? = nil) -> UIView{
+    let bounds = bounds ?? self.bounds
     UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0)
     layer.render(in: UIGraphicsGetCurrentContext()!)
 //    drawHierarchy(in: bounds, afterScreenUpdates: true)
